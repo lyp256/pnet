@@ -91,6 +91,7 @@ func unregister(addr net.Addr) error {
 
 }
 
+// InjectionNetFiles 将 fd 传入下一个启动的程序
 func InjectionNetFiles(cmd *exec.Cmd) error {
 	if cmd == nil {
 		return fmt.Errorf("cmd is nil")

@@ -4,6 +4,7 @@ import (
 	"net"
 )
 
+// ListenTCP implement 跟 net.ListenTCP 一样，但是优先使用已有的 fd
 func ListenTCP(network string, laddr *net.TCPAddr) (*net.TCPListener, error) {
 	ln, err := getPoolListen(laddr)
 	if err == nil {
@@ -19,6 +20,7 @@ func ListenTCP(network string, laddr *net.TCPAddr) (*net.TCPListener, error) {
 	return l, nil
 }
 
+// ListenUnix 跟 net.ListenUnix 一样，但是优先使用已有的 fd
 func ListenUnix(network string, laddr *net.UnixAddr) (*net.UnixListener, error) {
 	ln, err := getPoolListen(laddr)
 	if err == nil {
@@ -34,6 +36,7 @@ func ListenUnix(network string, laddr *net.UnixAddr) (*net.UnixListener, error) 
 	return l, nil
 }
 
+// ListenUDP 跟 net.ListenUDP 一样，但是优先使用已有的 fd
 func ListenUDP(network string, laddr *net.UDPAddr) (*net.UDPConn, error) {
 	ln, err := getPoolListen(laddr)
 	if err == nil {
@@ -49,6 +52,7 @@ func ListenUDP(network string, laddr *net.UDPAddr) (*net.UDPConn, error) {
 	return l, nil
 }
 
+// ListenIP 跟 net.ListenIP 一样，但是优先使用已有的 fd
 func ListenIP(network string, laddr *net.IPAddr) (*net.IPConn, error) {
 	ln, err := getPoolListen(laddr)
 	if err == nil {
@@ -64,6 +68,7 @@ func ListenIP(network string, laddr *net.IPAddr) (*net.IPConn, error) {
 	return l, nil
 }
 
+// ListenUnixgram 跟 net.ListenUnixgram 一样，但是优先使用已有的 fd
 func ListenUnixgram(network string, laddr *net.UnixAddr) (*net.UnixConn, error) {
 	ln, err := getPoolListen(laddr)
 	if err == nil {
@@ -79,6 +84,7 @@ func ListenUnixgram(network string, laddr *net.UnixAddr) (*net.UnixConn, error) 
 	return l, nil
 }
 
+// Listen 跟 net.Listen 一样，但是优先使用已有的 fd
 func Listen(network string, laddr string) (net.Listener, error) {
 	addr, err := ResolveAddr(network, laddr)
 	ln, err := getPoolListen(addr)
@@ -95,6 +101,7 @@ func Listen(network string, laddr string) (net.Listener, error) {
 	return l, nil
 }
 
+// ListenPacket 跟 net.ListenPacket 一样，但是优先使用已有的 fd
 func ListenPacket(network string, laddr string) (net.PacketConn, error) {
 	addr, err := ResolveAddr(network, laddr)
 	ln, err := getPoolListen(addr)
@@ -111,7 +118,9 @@ func ListenPacket(network string, laddr string) (net.PacketConn, error) {
 	return l, nil
 }
 
+// ResolveAddr ...
 func ResolveAddr(network string, laddr string) (net.Addr, error) {
+
 	switch network {
 	case "tcp", "tcp4", "tcp6":
 		return net.ResolveTCPAddr(network, laddr)
