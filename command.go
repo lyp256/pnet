@@ -5,7 +5,7 @@ import (
 	"os/exec"
 )
 
-// returns the execution file of the current program
+// CurrentCommand returns the execution file of the current program
 func CurrentCommand() (*exec.Cmd, error) {
 	workDir, err := os.Getwd()
 	if err != nil {

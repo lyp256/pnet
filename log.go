@@ -6,6 +6,7 @@ import (
 
 var logger *logrus.Logger
 
+// SetLog 设置日志
 func SetLog(l *logrus.Logger) {
 	logger = l
 }
